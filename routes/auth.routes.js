@@ -42,7 +42,7 @@ router.post('/login', async (req, res) => {
         return res.status(400).json({ message: 'Invalid email or password' });
     }
     // Generate a JWT token
-    const token = jwt.sign({ email: user[0].email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ sub: user[0].id, email: user[0].email }, process.env.JWT_SECRET, { expiresIn: '1h' });
     // Enviar como cookie httpOnly
     res.cookie('token', token, {
         httpOnly: true,      // No accesible desde JavaScript
